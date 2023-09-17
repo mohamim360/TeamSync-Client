@@ -12,7 +12,7 @@ function Chat() {
 
       const data = await response.json();
       setMessages(data.messages);
-      //console.log(data.messages);
+ 
     };
 
     fetchData();
@@ -27,12 +27,12 @@ function Chat() {
       body: JSON.stringify(message),
     });
     const data = await response.json();
-
+    //console.log(data.message._id);
     setMessages((prevState) => {
-      return [...prevState, data.message[0]];
+      return [...prevState, data.message];
     });
   }
-  console.log(messages);
+
   return (
     <>
       <div className="flex flex-col-reverse">
