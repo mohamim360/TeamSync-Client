@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect, useRef, useState } from "react";
 import Send from "./Send";
 import Messages from "./Messages";
 
@@ -12,7 +11,6 @@ function Chat() {
 
       const data = await response.json();
       setMessages(data.messages);
- 
     };
 
     fetchData();
@@ -33,14 +31,25 @@ function Chat() {
     });
   }
 
+  const containerRef = useRef(null);
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <>
-      <div className="flex flex-col-reverse">
+      <div className="flex flex-col-reverse m-auto">
         <Send onSendMessage={sendMessageHandler} />
-        <div>
+        <div
+          className="overflow-auto"
+          style={{ height: "30rem" }}
+          ref={containerRef}
+        >
           {messages.map((message) => (
             <Messages
-              _id={message._id}
+              key={message._id}
               user={message.user}
               createdAt={message.createdAt}
               message={message.message}
