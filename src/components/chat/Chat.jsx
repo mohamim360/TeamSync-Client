@@ -4,10 +4,15 @@ import Messages from "./Messages";
 
 function Chat() {
   const [messages, setMessages] = useState([]);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/chat/messages");
+      const response = await fetch("http://localhost:3000/chat/messages", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
 
       const data = await response.json();
       setMessages(data.messages);
@@ -21,6 +26,7 @@ function Chat() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
       },
       body: JSON.stringify(message),
     });

@@ -1,20 +1,23 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const token = localStorage.getItem("token");
+  console.log(token);
+  const navigate = useNavigate();
+  function logout() {
+    localStorage.removeItem("token");
+    navigate("/login");
+  }
   return (
     <>
-      <div className="navbar bg-base-100 shadow-lg m-2 mt-2">
+      <div className="navbar bg-base-100 shadow-md m-2 mt-2">
         <div className="flex-1">
-          <a className="btn btn-ghost normal-case text-xl">TeamSync</a>
+          <Link to="/" className="btn btn-ghost normal-case text-xl">
+            TeamSync
+          </Link>
         </div>
         <div className="flex-none gap-2">
-          <div className="form-control">
-            <input
-              type="text"
-              placeholder="Search"
-              className="input input-bordered w-24 md:w-auto"
-            />
-          </div>
           <div>
             {/* <div className="dropdown dropdown-end"> */}
             {/* <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
@@ -27,12 +30,20 @@ function Navbar() {
               tabIndex={0}
               className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
             > */}
-              <li>
-                <a>Login</a>
-              </li>
-              <li>
-                <a>Register</a>
-              </li>
+              {token ? (
+                <li>
+                  <a onClick={logout}>Logout</a>
+                </li>
+              ) : (
+                <>
+                  <li>
+                    <Link to="/login">Login</Link>
+                  </li>
+                  <li>
+                    <Link to="/register">Register</Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
