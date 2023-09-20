@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 function Navbar() {
   const token = localStorage.getItem("token");
-  console.log(token);
+
+  const tokenExpiration = localStorage.getItem("expiryDate");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token && tokenExpiration) {
+      const currentTime = Date.now(); 
+      const expirationTime = new Date(tokenExpiration).getTime();
+  
+      if (currentTime > expirationTime) {
+        logout();
+      }
+    }
+  }, [token, tokenExpiration]);
+
   function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("LoggedUserId");

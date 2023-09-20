@@ -26,9 +26,17 @@ function Login() {
       body: JSON.stringify(formData),
     });
     const data = await response.json();
-    console.log(data);
+ 
     localStorage.setItem("token", data.token);
+    
     localStorage.setItem("LoggedUserId", data.userId);
+
+    const remainingMilliseconds = 60 * 60 * 1000;
+    const expiryDate = new Date(
+      new Date().getTime() + remainingMilliseconds
+    );
+    localStorage.setItem('expiryDate', expiryDate.toISOString());
+
     if (response.ok) {
       navigate("/");
     }
