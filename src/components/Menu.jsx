@@ -1,20 +1,19 @@
 import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 function Menu() {
   return (
     <>
       <ul
         className="menu lg:menu-vertical
-      bg-base-100 rounded-box lg:mb-16 w-40 h-screen mt-6 m-2 
-			shadow-lg"
+      bg-base-100 rounded-box lg:mb-16 w-40 h-full mt-6 m-2 shadow-xl hover:shadow-slate-500 rounded-lg  hover:bg-white hover:border-gray-900 border-4"
       >
         <li className="p-4">
           <Link to="/chat">Chat</Link>
         </li>
-        <li>
+        {/* <li>
           <details open>
             <summary>Parent item</summary>
             <ul>
@@ -42,8 +41,9 @@ function Menu() {
         </li>
         <li>
           <a>Item 3</a>
-        </li>
+        </li> */}
       </ul>
+      {<Outlet />}
     </>
   );
 }

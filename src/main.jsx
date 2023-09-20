@@ -7,26 +7,42 @@ import Chat from "./components/chat/Chat";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import PrivateRoute from "./Route/PrivateRoute";
+import Menu from "./components/Menu";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
       {
-        path: "/chat",
-        element: <PrivateRoute><Chat/></PrivateRoute>,
+        path: "/",
+        element: (
+          <PrivateRoute>
+            <Menu/>
+          </PrivateRoute>
+        ),
+        children:[
+          {
+            path: "/chat",
+            element: (
+              <PrivateRoute>
+                <Chat />
+              </PrivateRoute>
+            ),
+          },
+        ]
       },
+    
+
       {
         path: "/login",
         element: <Login />,
       },
       {
         path: "/register",
-        element: <Register/>,
-      }
-    ]
+        element: <Register />,
+      },
+    ],
   },
-
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

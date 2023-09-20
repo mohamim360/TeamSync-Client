@@ -12,9 +12,9 @@ function Navbar() {
   }
   return (
     <>
-      <div className="navbar bg-base-100 shadow-md m-2 mt-2">
+      <div className="navbar bg-base-100 shadow-xl hover:shadow-slate-300 rounded-lg  hover:bg-white hover:border-gray-900 border-4 mb-6">
         <div className="flex-1">
-          <Link to="/" className="btn btn-ghost normal-case text-xl">
+          <Link to="/" className="btn btn-neutral normal-case text-xl">
             TeamSync
           </Link>
         </div>
