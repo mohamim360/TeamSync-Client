@@ -2,10 +2,9 @@ import React from "react";
 import Time from "./Time";
 
 function Messages(props) {
-  // Retrieve the authenticated userId from your authentication system.
+
   const authenticatedUserId = localStorage.getItem("LoggedUserId");
 
-  // Determine if the message belongs to the authenticated user.
   const isUserMessage = props.userId === authenticatedUserId;
 
   return (

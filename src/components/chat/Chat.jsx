@@ -1,22 +1,25 @@
 import React, { useEffect, useRef, useState } from "react";
 import Send from "./Send";
 import Messages from "./Messages";
+
 function Chat() {
   const [messages, setMessages] = useState([]);
 
   const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/chat/messages", {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
 
-      const data = await response.json();
-      setMessages(data.messages);
-    };
+  const fetchData = async () => {
+    const response = await fetch("http://localhost:3000/chat/messages", {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    const data = await response.json();
+    setMessages(data.messages);
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -29,11 +32,12 @@ function Chat() {
       },
       body: JSON.stringify(message),
     });
-    const data = await response.json();
-
-    setMessages((prevState) => {
-      return [...prevState, data.message];
-    });
+    //const data = await response.json();
+    fetchData();
+    // setMessages((prevState) => {
+    //   return [...prevState, data.message];
+    // });
+    
   }
 
   const containerRef = useRef(null);
@@ -48,7 +52,7 @@ function Chat() {
       <div className="flex rounded-lg  hover:bg-white hover:border-gray-900 border-4 flex-col-reverse m-auto mt-0">
         <Send onSendMessage={sendMessageHandler} />
         <div
-          className="overflow-auto"
+          className="overflow-y-scroll"
           style={{ height: "35rem" }}
           ref={containerRef}
         >
