@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import Send from "./Send";
 import Messages from "./Messages";
-
 function Chat() {
   const [messages, setMessages] = useState([]);
+
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -17,7 +17,6 @@ function Chat() {
       const data = await response.json();
       setMessages(data.messages);
     };
-
     fetchData();
   }, []);
 
@@ -31,7 +30,7 @@ function Chat() {
       body: JSON.stringify(message),
     });
     const data = await response.json();
-    //console.log(data.message._id);
+
     setMessages((prevState) => {
       return [...prevState, data.message];
     });
@@ -46,17 +45,18 @@ function Chat() {
 
   return (
     <>
-      <div className="flex flex-col-reverse m-auto">
+      <div className="flex rounded-lg  hover:bg-white hover:border-gray-900 border-4 flex-col-reverse m-auto mt-0">
         <Send onSendMessage={sendMessageHandler} />
         <div
           className="overflow-auto"
-          style={{ height: "30rem" }}
+          style={{ height: "35rem" }}
           ref={containerRef}
         >
           {messages.map((message) => (
             <Messages
               key={message._id}
-              user={message.user}
+              user={message.user.name}
+              userId={message.user._id}
               createdAt={message.createdAt}
               message={message.message}
             />

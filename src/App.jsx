@@ -11,7 +11,7 @@ function App() {
     <>
       <Navbar />
       <div className="flex">
-        {/* <Menu /> */}
+        <Menu />
         <Outlet />
       </div>
       {/* <Footer /> */}

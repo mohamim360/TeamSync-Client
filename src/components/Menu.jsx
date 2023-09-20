@@ -1,16 +1,18 @@
 import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { Link } from "react-router-dom";
 
 function Menu() {
   return (
     <>
-		
-      <ul className="menu lg:menu-vertical
+      <ul
+        className="menu lg:menu-vertical
       bg-base-100 rounded-box lg:mb-16 w-40 h-screen mt-6 m-2 
-			shadow-lg">
+			shadow-lg"
+      >
         <li className="p-4">
-          <a>Chat</a>
+          <Link to="/chat">Chat</Link>
         </li>
         <li>
           <details open>
@@ -42,7 +44,6 @@ function Menu() {
           <a>Item 3</a>
         </li>
       </ul>
-			
     </>
   );
 }
