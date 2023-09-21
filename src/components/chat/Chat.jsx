@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import Send from "./Send";
 import Messages from "./Messages";
+import openSocket from "socket.io-client";
 
 function Chat() {
   const [messages, setMessages] = useState([]);
 
   const token = localStorage.getItem("token");
-
 
   const fetchData = async () => {
     const response = await fetch("http://localhost:3000/chat/messages", {
@@ -14,9 +14,9 @@ function Chat() {
         Authorization: "Bearer " + token,
       },
     });
-
     const data = await response.json();
     setMessages(data.messages);
+    console.log(data.messages);
   };
 
   useEffect(() => {
@@ -33,12 +33,23 @@ function Chat() {
       body: JSON.stringify(message),
     });
     //const data = await response.json();
-    fetchData();
-    // setMessages((prevState) => {
-    //   return [...prevState, data.message];
-    // });
-    
   }
+
+  const socket = openSocket("http://localhost:3000");
+
+  useEffect(() => {
+    const handleSocketMessages = (data) => {
+      if (data.action === "create") {
+        setMessages((prevState) => {
+          return [...prevState, data.message];
+        });
+      }
+    };
+    socket.on("messages", handleSocketMessages);
+    return () => {
+      socket.off("messages", handleSocketMessages);
+    };
+  }, [messages]);
 
   const containerRef = useRef(null);
   useEffect(() => {
@@ -53,7 +64,7 @@ function Chat() {
         <Send onSendMessage={sendMessageHandler} />
         <div
           className="overflow-y-scroll"
-          style={{ height: "35rem" }}
+          style={{ height: "30rem" }}
           ref={containerRef}
         >
           {messages.map((message) => (

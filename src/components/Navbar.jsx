@@ -20,6 +20,7 @@ function Navbar() {
   function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("LoggedUserId");
+    localStorage.removeItem("expiryDate");
     navigate("/login");
   }
   return (

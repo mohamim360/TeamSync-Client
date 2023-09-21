@@ -12,7 +12,6 @@ function App() {
     <>
       <Navbar />
       <div className="flex">
-        {/* <PrivateRoute> <Menu /></PrivateRoute>   */}
         <Outlet />
       </div>
       {/* <Footer /> */}
