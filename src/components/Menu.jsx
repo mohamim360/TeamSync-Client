@@ -11,7 +11,7 @@ function Menu() {
       bg-base-100 rounded-box lg:mb-16 w-40 h-full mt-6 m-2 shadow-xl hover:shadow-slate-500 rounded-lg  hover:bg-white hover:border-gray-900 border-4"
       >
         <li className="p-4">
-          <Link to="/chat">Chat</Link>
+          <Link to="/chat" className="font-bold">Chat</Link>
         </li>
         {/* <li>
           <details open>

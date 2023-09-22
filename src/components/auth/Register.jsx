@@ -23,7 +23,7 @@ function Register() {
   const submitHandler = async (event) => {
     console.log(formData);
     event.preventDefault();
-    const response = await fetch("http://localhost:3000/auth/signup", {
+    const response = await fetch("https://teamsync-server.onrender.com/auth/signup", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
