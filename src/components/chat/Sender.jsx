@@ -25,7 +25,7 @@ function Sender() {
         </div>
         <div className="overflow-auto p-4">
           {users.map((user) => (
-            <div>
+            <div key={user._id}>
               <p className="p-2  font-semibold">{user.name}</p>
             </div>
           ))}
