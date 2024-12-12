@@ -40,7 +40,7 @@ function ChatBox() {
     //const data = await response.json();
   }
 
-  const socket = openSocket("http://localhost:3000");
+  const socket = openSocket("https://team-sync-server-seven.vercel.app");
 
   useEffect(() => {
     const handleSocketMessages = (data) => {
