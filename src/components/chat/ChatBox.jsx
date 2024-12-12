@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Send from "./Send";
 import Messages from "./Messages";
 import openSocket from "socket.io-client";
@@ -10,7 +10,7 @@ function ChatBox() {
   const fetchData = async () => {
     setIsLoading(true);
     const response = await fetch(
-      "https://teamsync-server.onrender.com/chat/messages",
+      "https://team-sync-server-seven.vercel.app/chat/messages",
       {
         headers: {
           Authorization: "Bearer " + token,
@@ -25,24 +25,22 @@ function ChatBox() {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function sendMessageHandler(message) {
-    const response = await fetch(
-      "https://teamsync-server.onrender.com/chat/message",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-        body: JSON.stringify(message),
-      }
-    );
+    await fetch("https://team-sync-server-seven.vercel.app/chat/message", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(message),
+    });
     //const data = await response.json();
   }
 
-  const socket = openSocket("https://teamsync-server.onrender.com");
+  const socket = openSocket("http://localhost:3000");
 
   useEffect(() => {
     const handleSocketMessages = (data) => {
@@ -56,7 +54,7 @@ function ChatBox() {
     return () => {
       socket.off("messages", handleSocketMessages);
     };
-  }, [messages]);
+  }, [socket]);
 
   const containerRef = useRef(null);
   useEffect(() => {
@@ -91,7 +89,6 @@ function ChatBox() {
           <span className="loading loading-spinner loading-lg"></span>
         </div>
       )}
-   
     </>
   );
 }

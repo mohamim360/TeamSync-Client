@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
@@ -22,7 +22,7 @@ function Login() {
     event.preventDefault();
     setIsLoading(true);
     const response = await fetch(
-      "https://teamsync-server.onrender.com/auth/login",
+      "https://team-sync-server-seven.vercel.app/auth/login",
       {
         method: "POST",
         headers: {

@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function Sender() {
   const [users, setUsers] = useState([]);
   const token = localStorage.getItem("token");
   const fetchData = async () => {
-    const response = await fetch("https://teamsync-server.onrender.com/chat/users", {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    });
+    const response = await fetch(
+      "https://team-sync-server-seven.vercel.app/chat/users",
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
     const data = await response.json();
     setUsers(data.users);
     console.log(data.users);
@@ -16,6 +19,7 @@ function Sender() {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
